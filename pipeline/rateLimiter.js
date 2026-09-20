@@ -21,7 +21,7 @@ function rateLimiter(req) {
       res = {
         pass: false,
         status: 429,
-        message: "Too many requestes"
+        message: "Too many requests"
       }
     }
     ipMap.set(ip_adrs, filtered)

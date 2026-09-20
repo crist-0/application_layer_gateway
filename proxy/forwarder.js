@@ -1,6 +1,6 @@
 const http = require('node:http');
 
-function forwardRequest(req, res) {
+function forwardRequest(req, res, body) {
   const PORT = 4000;
 
   const parsedUrl = new URL(req.url, `http://localhost:${PORT}`);
@@ -11,7 +11,10 @@ function forwardRequest(req, res) {
     hostname: '127.0.0.1',
     port: PORT,
     path: pathname,
-    method: method
+    method: method,
+    headers: {
+      'content-length': Buffer.byteLength(body)
+    }
   };
 
   console.log(`PathName : ${pathname} \n`);
@@ -30,8 +33,7 @@ function forwardRequest(req, res) {
   reqq.on('error', (e) => {
       console.error(`Problem with the request: ${e.message}`);
     })
-
-  reqq.end();
+  reqq.end(body);
 
 }
 
