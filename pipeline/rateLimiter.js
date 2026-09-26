@@ -1,7 +1,7 @@
 const ipMap = new Map();
 
 const window = 10000
-const lmt = 30
+const lmt = 9
 
 function rateLimiter(req) {
   const ip_adrs = req.socket.remoteAddress
