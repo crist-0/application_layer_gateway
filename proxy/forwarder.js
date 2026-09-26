@@ -1,4 +1,5 @@
 const http = require('node:http');
+const { recordFailure, recordSuccess } = require('../pipeline/circuitBreaker');
 
 function forwardRequest(req, res, body) {
   const PORT = 4000;
@@ -27,11 +28,18 @@ function forwardRequest(req, res, body) {
 
     res.writeHead(statusCode, headers);
 
+    if (statusCode >= 500) {
+      recordFailure();
+    } else {
+      recordSuccess();
+    }
+
     ress.pipe(res);
 
   });
   reqq.on('error', (e) => {
-      console.error(`Problem with the request: ${e.message}`);
+    console.error(`Problem with the request: ${e.message}`);
+    recordFailure();
     })
   reqq.end(body);
 
