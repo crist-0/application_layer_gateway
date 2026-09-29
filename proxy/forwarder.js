@@ -1,5 +1,6 @@
 const http = require('node:http');
 const { recordFailure, recordSuccess } = require('../pipeline/circuitBreaker');
+const { buildBaseEvent, logEvent } = require('../logger/logger');
 
 function forwardRequest(req, res, body) {
   const PORT = 4000;
@@ -27,6 +28,13 @@ function forwardRequest(req, res, body) {
     const headers = ress.headers;
 
     res.writeHead(statusCode, headers);
+
+    let event = buildBaseEvent(req);
+
+    event.type = "traffic";
+    event.statusCode = statusCode;
+
+    logEvent(event);
 
     if (statusCode >= 500) {
       recordFailure();
