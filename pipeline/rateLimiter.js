@@ -1,7 +1,8 @@
+const { config } = require("../config/configLoader");
+
 const ipMap = new Map();
 
-const window = 10000
-const lmt = 9
+
 
 function rateLimiter(req) {
   const ip_adrs = req.socket.remoteAddress
@@ -11,8 +12,8 @@ function rateLimiter(req) {
 
   if (ipMap.has(ip_adrs)) {
     const stmps = ipMap.get(ip_adrs)
-    const filtered = stmps.filter(tm => time - tm <= window)
-    if (filtered.length < lmt) {
+    const filtered = stmps.filter(tm => time - tm <= config.rateLimiter.window)
+    if (filtered.length < config.rateLimiter.limit) {
       res = {
         pass: true
       }

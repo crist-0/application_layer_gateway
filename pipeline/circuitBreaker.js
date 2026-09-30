@@ -1,12 +1,11 @@
+const { config } = require("../config/configLoader");
+
 const StateStatus = Object.freeze({
   OPEN: "OPEN",
   CLOSED: "CLOSED",
   HALF_OPEN: "HALF_OPEN"
 })
 
-
-const COOLDOWN_MS = 10000
-const FAILURE_THRESHOLD = 5
 
 const CircuitDS = {
   state: StateStatus.CLOSED,
@@ -22,7 +21,7 @@ const canRequest = (req) => {
       pass: true
     }
   } else if (CircuitDS.state === StateStatus.OPEN) {
-    if (Date.now() - CircuitDS.openedAt >= COOLDOWN_MS) {
+    if (Date.now() - CircuitDS.openedAt >= config.circuitBreaker.cooldownMs) {
       CircuitDS.state = StateStatus.HALF_OPEN
       response = {
         pass: true
@@ -57,7 +56,7 @@ const recordFailure = () => {
   console.log(`[recordFailure] BEFORE state=${CircuitDS.state}`);
   if (CircuitDS.state === StateStatus.CLOSED) {
     CircuitDS.consecutiveFailures += 1;
-    if (CircuitDS.consecutiveFailures >= FAILURE_THRESHOLD) {
+    if (CircuitDS.consecutiveFailures >= config.circuitBreaker.failureThreshold) {
       CircuitDS.state = StateStatus.OPEN;
       CircuitDS.openedAt = Date.now();
     }

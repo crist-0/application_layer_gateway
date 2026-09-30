@@ -1,17 +1,18 @@
 const fs = require('node:fs/promises');
 const path = require('node:path');
 
-const MAX_QUEUE_SIZE = 300;
-const FLUSH_INTERVAL_MS = 15000;
+const { config } = require("../config/configLoader");
+
+
 const LOG_FILE = path.join(__dirname, 'events.log');
 
 let logQueue = [];
 
 const logEvent = (event) => {
-  if (logQueue.length == MAX_QUEUE_SIZE) {
+  if (logQueue.length == config.logger.maxQueueSize) {
     logQueue.shift();
   }
-  if (logQueue.length < MAX_QUEUE_SIZE ) {
+  if (logQueue.length < config.logger.maxQueueSize ) {
     logQueue.push(event);
   }
 }
@@ -36,7 +37,7 @@ const flush = async () => {
 }
 
 
-setInterval(flush, FLUSH_INTERVAL_MS);
+setInterval(flush, config.logger.flushIntervalMs);
 
 
 const buildBaseEvent = (req) => {

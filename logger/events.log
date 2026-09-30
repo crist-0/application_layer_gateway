@@ -1,0 +1,8 @@
+{"ip":"::ffff:127.0.0.1","timestamp":1790663473797,"method":"GET","path":"/products","type":"traffic","statusCode":200}
+{"ip":"::ffff:127.0.0.1","timestamp":1790663484055,"method":"GET","path":"/products","type":"security","source":"injectionFilter","reason":"Suspicious pattern detected"}
+{"ip":"::1","timestamp":1790678597922,"method":"GET","path":"/products","type":"traffic","statusCode":200}
+{"ip":"::1","timestamp":1790678597948,"method":"GET","path":"/products","type":"traffic","statusCode":200}
+{"ip":"::1","timestamp":1790678597960,"method":"GET","path":"/products","type":"traffic","statusCode":200}
+{"ip":"::1","timestamp":1790678597967,"method":"GET","path":"/products","type":"security","source":"rateLimiter","reason":"Too many requests"}
+{"ip":"::1","timestamp":1790678609510,"method":"GET","path":"/products","type":"traffic","statusCode":200}
+{"ip":"::1","timestamp":1790678609516,"method":"GET","path":"/products","type":"security","source":"rateLimiter","reason":"Too many requests"}

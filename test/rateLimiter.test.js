@@ -23,9 +23,7 @@ test('exceeding the limit blocks the request', () => {
 });
 
 test('a different IP is unaffected by another IP being near/at its limit', () => {
-  // fill this in: hammer IP 'A' close to or past its limit,
-  // then assert a fresh request from IP 'B' still passes
-  //
+
   const request = makeFakeReq('3.2.2.2');
   for (let i = 0; i < 9; i++) {
     rateLimiter(request);
