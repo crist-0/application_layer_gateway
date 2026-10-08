@@ -6,3 +6,4 @@
 {"ip":"::1","timestamp":1790678597967,"method":"GET","path":"/products","type":"security","source":"rateLimiter","reason":"Too many requests"}
 {"ip":"::1","timestamp":1790678609510,"method":"GET","path":"/products","type":"traffic","statusCode":200}
 {"ip":"::1","timestamp":1790678609516,"method":"GET","path":"/products","type":"security","source":"rateLimiter","reason":"Too many requests"}
+{"ip":"::ffff:127.0.0.1","timestamp":1790747412396,"method":"GET","path":"/products","type":"traffic","statusCode":200}

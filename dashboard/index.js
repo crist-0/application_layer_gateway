@@ -4,6 +4,8 @@ const express = require('express');
 const session = require('express-session');
 const fs = require('fs');
 
+const LOG_FILE = process.env.LOG_FILE_PATH || path.join(__dirname, '..', 'gateway', 'logger', 'data', 'events.log');
+
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -24,8 +26,6 @@ function requireLogin(req, res, next) {
 }
 
 function readEvents() {
-
-  const LOG_FILE = path.join(__dirname, '..', 'logger', 'events.log');
 
 
   let data;

@@ -1,10 +1,17 @@
 const fs = require('node:fs/promises');
+
+const fsSync = require('node:fs');
+
 const path = require('node:path');
 
 const { config } = require("../config/configLoader");
 
+const LOG_DIR = path.join(__dirname, 'data');
+const LOG_FILE = path.join(LOG_DIR, 'events.log');
 
-const LOG_FILE = path.join(__dirname, 'events.log');
+if (!fsSync.existsSync(LOG_DIR)) {
+  fsSync.mkdirSync(LOG_DIR, { recursive: true });
+}
 
 let logQueue = [];
 

@@ -9,3 +9,7 @@ circuitBreaker:
 logger:
   maxQueueSize: 300
   flushIntervalMs: 15000
+
+backend:
+  hostname: backend
+  port: 4000

@@ -18,6 +18,8 @@ function validateConfig(parsed) {
     return false;
   } else if (typeof (parsed.logger.maxQueueSize) != 'number' || typeof (parsed.logger.flushIntervalMs) != 'number') {
     return false;
+  } else if (typeof (parsed.backend.hostname) != 'string' || typeof (parsed.backend.port) != 'number') {
+    return false;
   } else {
     return true;
   }
@@ -35,6 +37,7 @@ function loadConfig() {
     config.rateLimiter = parsed.rateLimiter;
     config.circuitBreaker = parsed.circuitBreaker;
     config.logger = parsed.logger;
+    config.backend = parsed.backend;
 
     console.log('Config loaded successfully');
   } catch (err) {
